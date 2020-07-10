@@ -29,11 +29,13 @@ var road = { url: "https://mercos.com/uploads/the-road-to-learn-react.pdf#page="
 
 function App() {
   const [state,setState] = useState(list);
+  const [searchTerm,setSearchTerm] = useState('')
   const [name, setName] = useState('');
   const isSearched = searchTerm => item =>
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
   return (
     <div className="App">   
+      {searchTerm}
       <h2>
         <a href={road.url + road.page} target="_blank">
           Pagina {road.page}
@@ -41,7 +43,14 @@ function App() {
 
       </h2>
       <form>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
+      <input 
+        type="text" 
+        value={searchTerm}
+        onChange={(e) => {
+          setName(e.target.value)
+          setSearchTerm(e.target.value)        
+        }} 
+      />
       </form>
  
       {state.filter(isSearched(name)).map(item => 
